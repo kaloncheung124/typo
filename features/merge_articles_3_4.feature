@@ -21,14 +21,14 @@ Background:
 
 Scenario: The article merging deletes the second article
   And I am on the edit page for article 4
-  When I fill in "merge_id" with "3"
+  When I fill in "merge_with" with "3"
   And I press "Merge With This Article"
   Then I should be on the manage articles page
   And I should not see "Electric Shocks"
 
 Scenario: When articles are merged, the merged article should contain the text of both previous articles
   And I am on the edit page for article 4
-  When I fill in "merge_id" with "3"
+  When I fill in "merge_with" with "3"
   And I press "Merge With This Article"
   When I am on the home page
   Then I should see "Water Rules"

@@ -61,7 +61,7 @@ class ArticlesController < ContentController
 
   def merge
     id1 = params[:id]
-    id2 = params[:merge_id]
+    id2 = params[:merge_with]
     Article.find(id1).merge_with(id2)
     redirect_to admin_content_path
     return

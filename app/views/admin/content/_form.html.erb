@@ -153,8 +153,8 @@
         <%= form_tag(merge_path(@article.id), method: "post") do %>
         <% end %>
         <%= form_tag(merge_path(@article.id), method: "post") do %>
-        <%= label_tag(:merge_id, "Article ID:") %>
-        <%= text_field_tag(:merge_id) %>
+        <%= label_tag(:merge_with, "Article ID:") %>
+        <%= text_field_tag(:merge_with) %>
         <%= submit_tag("Merge With This Article") %>
         <% end %>
       </div>
