@@ -59,6 +59,15 @@ class ArticlesController < ContentController
     end
   end
 
+  def merge
+    id1 = params[:id]
+    id2 = params[:merge_id]
+    Article.find(id1).merge_with(id2)
+    redirect_to admin_content_path
+    return
+  end
+    
+
   def live_search
     @search = params[:q]
     @articles = Article.search(@search)

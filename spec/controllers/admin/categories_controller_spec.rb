@@ -33,6 +33,10 @@ describe Admin::CategoriesController do
       assigns(:categories).should_not be_nil
     end
   end
+  
+  it "test_get" do
+    get adnim_categories_path(:id => nil)
+  end
 
   it "test_update" do
     post :edit, :id => Factory(:category).id

@@ -79,6 +79,22 @@ class Article < Content
   def has_child?
     Article.exists?({:parent_id => self.id})
   end
+  
+  def merge_with(id2)
+    if self.id == id2
+      return
+    end
+    if self.allow_comments
+      Comment.where(article_id: id2).find_each do |comment|
+        comment.article_id = self.id
+        comment.save!
+      end
+    end
+    article2 = Article.find(id2)
+    self.body = self.body + article2.body
+    self.save!
+    Article.destroy(id2)
+  end
 
   attr_accessor :draft, :keywords
 

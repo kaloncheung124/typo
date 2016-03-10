@@ -43,16 +43,52 @@ Given /^the blog is set up$/ do
                 :state => 'active'})
 end
 
-And /^I am logged into the admin panel$/ do
+And /^I am logged into "(.*)" with "(.*)"$/ do |username, password|
   visit '/accounts/login'
-  fill_in 'user_login', :with => 'admin'
-  fill_in 'user_password', :with => 'aaaaaaaa'
+  fill_in 'user_login', :with => username
+  fill_in 'user_password', :with => password
   click_button 'Login'
   if page.respond_to? :should
     page.should have_content('Login successful')
   else
     assert page.has_content?('Login successful')
   end
+end
+
+Given /the following articles exist/ do |articles_table|
+  articles_table.hashes.each do |article|
+    Article.create! article
+  end
+end
+
+Given /the following users exist/ do |users_table|
+  users_table.hashes.each do |user|
+    User.create! user
+  end
+end
+
+Given /the following comments exist/ do |comments_table|
+  comments_table.hashes.each do |comment|
+    Comment.create! comment
+  end
+end
+
+Given /I navigate to the "(.*)" page/ do |title|
+  visit path_to "the home page"
+  click_link(title)
+end
+  
+
+When /articles (\d+) and (\d+) are merged/ do |id1, id2|
+  article1 = Article.find(id1)
+  article1.merge_with(id2)
+end
+
+Given /I write a new article with title: "(.*)" and body: "(.*)"/ do |title, body|
+  visit path_to('the new article page')
+  fill_in("article_title", :with => title)
+  fill_in("article__body_and_extended_editor", :with => body)
+  click_button("Publish")
 end
 
 # Single-line step scoper
