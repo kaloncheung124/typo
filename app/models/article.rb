@@ -81,7 +81,7 @@ class Article < Content
   end
   
   def merge_with(id2)
-    if Integer(self.id) == Integer(id2)
+    if self.id == id2
       return
     end
     if self.allow_comments
